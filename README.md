@@ -6,7 +6,7 @@ This repository contains the code used to build a weather dashboard. This webpag
 
 ## Installation
 
-Use the URL: 
+Use the URL: https://fardinatabassum.github.io/Challenge-6-Weather-Dashboard/
 
 ## Usage
 
