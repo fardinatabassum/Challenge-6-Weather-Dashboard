@@ -53,6 +53,16 @@ function weatherCall(city) {
       console.log("description", data.weather[0].main)
       weatherDescription.innerHTML = (data.weather[0].main)
 
+      currentDate = new Date(data.dt * 1000);
+      const day = currentDate.getDate();
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth() + 1;
+      currentDate.innerHTML = "date"(" + month + "/" + day + "/" + year + ") ;
+      console.log(day);
+      console.log(year);
+      console.log(month);
+      console.log(currentDate);
+
         // FETCH FORECAST
       fetch(
         "https://api.openweathermap.org/data/2.5/forecast?q=" +
@@ -69,6 +79,7 @@ function weatherCall(city) {
       });
     });
 }
+
 
 let history = JSON.parse(localStorage.getItem("city")) || []
 
