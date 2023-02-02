@@ -1,14 +1,18 @@
+//Variables
 var APIKey = "1e128d5dabf3dcafd12f8a689fd4d644";
 var searchBtn = document.querySelector(".btn-primary");
 var card = document.querySelector(".card");
 var forecastContent = document.querySelector(".forecast");
-card.style.display = "none";
-forecastContent.style.display = "none";
 var input = document.querySelector("#inputCity")
 var currentTemp = document.querySelector(".temperature");
 var cityName = document.querySelector(".city-name");
 var currentHumidity = document.querySelector(".humidity")
 var currentWind = document.querySelector(".wind")
+var weatherIcon = document.querySelector(".icon")
+var weatherDescription = document.querySelector(".description")
+var currentDate = document.querySelector(".date")
+card.style.display = "none";
+forecastContent.style.display = "none";
 
 function weatherCall(city) {
   card.style.display = "block";
@@ -26,8 +30,10 @@ function weatherCall(city) {
     })
     .then(function (data) {
       console.log(data);
+      //date
+      console.log("date", data.dt)
       // CITY NAME
-      cityName.innerHTML = data.name
+      cityName.innerHTML = data.name;
       // TEMP
       console.log("Temp:", data.main.temp);
       currentTemp.innerHTML =
@@ -39,7 +45,11 @@ function weatherCall(city) {
       console.log("WS", data.wind.speed);
       currentWind.innerHTML = "Wind: " + (data.wind.speed) + "MPH"
       //weather icon
-      console.log("icon", data) 
+      console.log("icon", data.weather[0].icon) 
+      weatherIcon.src = "http://openweathermap.org/img/wn/" + (data.weather[0].icon) + ".png" 
+      // weather description
+      console.log("description", data.weather[0].main)
+      weatherDescription.innerHTML = (data.weather[0].main)
 
         // FETCH FORECASE
       fetch(
@@ -72,3 +82,13 @@ localStorage.clear()
 // create an li for each iteration(document.create("li")) in the for loop
 // append history[i] t each li
 // append the li's to the ul div in HTML
+function renderHistories(){
+    for (var i = 0; i < histories.length; i+=8) {
+        var history = histories[i];
+        var li = document.createElement("li");
+        li.textContent = history;
+        li.appendChild(history)
+        history.appendChild(li)
+
+    }
+}
