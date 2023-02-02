@@ -6,7 +6,9 @@ card.style.display = "none";
 forecastContent.style.display = "none";
 var input = document.querySelector("#inputCity")
 var currentTemp = document.querySelector(".temperature");
-var cityName = document.querySelector(".city-name")
+var cityName = document.querySelector(".city-name");
+var currentHumidity = document.querySelector(".humidity")
+var currentWind = document.querySelector(".wind")
 
 function weatherCall(city) {
   card.style.display = "block";
@@ -32,8 +34,13 @@ function weatherCall(city) {
         "Temperature: " + Math.floor(data.main.temp) + `&#8457`;
       // HUM
       console.log("Hum:", data.main.humidity);
+      currentHumidity.innerHTML = "Humidity: " + Math.floor(data.main.humidity) + "%"
       // WIND SPEED
       console.log("WS", data.wind.speed);
+      currentWind.innerHTML = "Wind: " + (data.wind.speed) + "MPH"
+      //weather icon
+      console.log("icon", data) 
+
         // FETCH FORECASE
       fetch(
         "https://api.openweathermap.org/data/2.5/forecast?q=" +
@@ -59,7 +66,7 @@ searchBtn.addEventListener("click", function () {
     localStorage.setItem("city", JSON.stringify(history))
     // call render function
 });
-
+localStorage.clear()
 // function named render
 // loop through history variable
 // create an li for each iteration(document.create("li")) in the for loop
