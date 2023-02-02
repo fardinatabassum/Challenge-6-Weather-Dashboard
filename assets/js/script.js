@@ -1,4 +1,4 @@
-//Variables
+//Variables for cuurent weather
 var APIKey = "1e128d5dabf3dcafd12f8a689fd4d644";
 var searchBtn = document.querySelector(".btn-primary");
 var card = document.querySelector(".card");
@@ -13,6 +13,8 @@ var weatherDescription = document.querySelector(".description")
 var currentDate = document.querySelector(".date")
 card.style.display = "none";
 forecastContent.style.display = "none";
+
+//variables for forecast
 
 function weatherCall(city) {
   card.style.display = "block";
@@ -51,7 +53,7 @@ function weatherCall(city) {
       console.log("description", data.weather[0].main)
       weatherDescription.innerHTML = (data.weather[0].main)
 
-        // FETCH FORECASE
+        // FETCH FORECAST
       fetch(
         "https://api.openweathermap.org/data/2.5/forecast?q=" +
           city +
@@ -63,6 +65,7 @@ function weatherCall(city) {
       })
       .then(function (data) {
         console.log(data);
+
       });
     });
 }
@@ -92,3 +95,4 @@ function renderHistories(){
 
     }
 }
+
