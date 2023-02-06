@@ -80,10 +80,13 @@ function weatherCall(city) {
           return res.json();
         })
         .then(function (data) {
-          console.log(data)
+
+          var cardGroup = document.querySelector(".card-group")
+          cardGroup.innerHTML = "" //TO remove duplication
+
           for (i = 0; i < data.list.length; i += 8) {
             var forecastData = data.list[i]
-            console.log(data)
+            // console.log(data)
 
             var forecastTimeString = forecastData.dt_txt
 
@@ -154,13 +157,9 @@ function weatherCall(city) {
             cardGroup.appendChild(forecastCard)
 
           }
-          
+
         })
     });
-}
-
-function removeDuplicate(){
-  cardGroup.innerHTML = ""
 }
 
 let history = JSON.parse(localStorage.getItem("city")) || []
