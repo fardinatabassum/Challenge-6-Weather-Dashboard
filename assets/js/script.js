@@ -17,6 +17,7 @@ forecastContent.style.display = "none";
 
 
 function weatherCall(city) {
+    input.value = ""
     card.style.display = "block";
     forecastContent.style.display = "block";
     // FETCH NOW
@@ -34,6 +35,12 @@ function weatherCall(city) {
              console.log(data);
             //date
             // console.log("date", data.dt)
+            var today = new Date(data.dt * 1000);
+            const day = today.getDate();
+            const month = today.getMonth() + 1;
+            const year = today.getFullYear();
+            currentDate.innerHTML = "(" + month + "/" + day + "/" + year + ")" ;
+           
             // CITY NAME
             cityName.innerHTML = data.name;
             // TEMP
@@ -55,17 +62,12 @@ function weatherCall(city) {
             // console.log("description", data.weather[0].main)
             weatherDescription.innerHTML = data.weather[0].main;
             
-            /*  
-            currentDate = new Date(data.dt * 1000);
-            const day = currentDate.getDate();
-            const year = currentDate.getFullYear();
-            const month = currentDate.getMonth() + 1;
-            currentDate.innerHTML = "date"(" + month + "/" + day + "/" + year + ") ;
+             
             console.log(day);
             console.log(year);
             console.log(month);
             console.log(currentDate);
-            */
+            
 
            
            // FETCH FORECAST
@@ -77,9 +79,10 @@ function weatherCall(city) {
                "&units=imperial"
                )
         .then(function (res) {
-          return res.json();
+            return res.json();
         })
         .then(function (data) {
+            console.log(data)
 
           var cardGroup = document.querySelector(".card-group")
           cardGroup.innerHTML = "" //TO remove duplication
@@ -87,24 +90,26 @@ function weatherCall(city) {
           for (i = 0; i < data.list.length; i += 8) {
             var forecastData = data.list[i]
             // console.log(data)
-
-            var forecastTimeString = forecastData.dt_txt
-
-            var forecastTime = forecastTimeString.split(" ")[0]
-
+            var forecastDate = new Date(data.list[i].dt * 1000);
+            const day = forecastDate.getDate();
+            const month = forecastDate.getMonth() + 1;
+            const year = forecastDate.getFullYear()
+            
             //Create forecast-card div
             var forecastCard = document.createElement("div")
             forecastCard.classList.add(".forecast-card")
-
+            
             //Create card div
             var forecastBody = document.createElement("div")
             forecastBody.classList.add(".card-body")
+            forecastBody.setAttribute("class", "forecast bg-primary text-white rounded p-4 m-3")
             
             // HEADER
             //Create header element
             var forecastHeader = document.createElement("h3")
             forecastHeader.classList.add("date-1")
-            forecastHeader.innerText = forecastTime
+            forecastHeader.innerHTML = "(" + month + "/" + day + "/" + year + ")" ;
+            
 
             //Create IMAGE
             var forecastImage = document.createElement("img")
@@ -123,7 +128,7 @@ function weatherCall(city) {
 
             //Temperature
             forecastList2.classList.add(".temperature-1");
-            forecastList2.innerText = "Temperature: " + Math.floor(forecastData.main.temp) + '\u2109'; 
+            forecastList2.innerText = "Temperature: " + Math.floor(forecastData.main.temp) + `\u2109`; 
 
             //Wind
             forecastList3.classList.add("wind-1")
@@ -143,6 +148,7 @@ function weatherCall(city) {
             forecastUl.appendChild(forecastList2)
             forecastUl.appendChild(forecastList3)
             forecastUl.appendChild(forecastList4)
+            
             
 
             //Append header to card-body
@@ -180,9 +186,16 @@ function renderHistories(){
     for (var i = 0; i < history.length; i++) {
       var cities = history[i]
       // creating li element and adding the text to them
-      var cityList = document.createElement('li')
+      var cityList = document.createElement('button')
       cityList.classList.add("search-history")
       cityList.textContent = cities
+      cityList.setAttribute("type", "text");
+      cityList.setAttribute("style", "margin: 10px -30px");
+      cityList.setAttribute("readonly", true);
+      cityList.setAttribute("class", "form-control d-block bg-grey");
+      cityList.addEventListener("click", function() {
+        weatherCall(cityList.textContent)
+      })
     }
 
     // Append list to ul element
