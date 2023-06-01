@@ -102,6 +102,7 @@ function weatherCall(city) {
             //Create card div
             var forecastBody = document.createElement("div")
             forecastBody.classList.add(".card-body")
+            forecastBody.setAttribute("class", "forecast bg-primary text-white rounded p-4 m-3")
             
             // HEADER
             //Create header element
