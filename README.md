@@ -10,7 +10,7 @@ Use the URL: https://fardinatabassum.github.io/Challenge-6-Weather-Dashboard/
 
 ## Usage
 
-![Challenge-6-Weather-Dashboard](./assets/images/screenshot%20weather%20dashboard.png)
+![Challenge-6-Weather-Dashboard](./assets/images/weather-dashboard-screenshot.png)
 
 The assets file contains the javascript file used to provide web interactions. This webpage was styled using the bootstrap API. The assets folder also contains an image of the final webpage. Users can access the webpage by either using the URL or the index.html file. The users can then put the name of the city in the input of the search bar and click search. This should pull up the current weather information as well as the 5-Day forecast of the selected city. The previously searched cities will then be saved underneath the search bar.
 
